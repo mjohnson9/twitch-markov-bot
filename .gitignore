@@ -19,6 +19,9 @@ public/css/main.css
 # API keys and secrets
 .env
 
+# Coverage
+coverage
+
 # Dependency directory
 node_modules
 bower_components
