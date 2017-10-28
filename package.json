@@ -54,7 +54,7 @@
 	"devDependencies": {
 		"@types/async": "^2.0.40",
 		"@types/dotenv": "^4.0.2",
-		"@types/jest": "^19.2.2",
+		"@types/jest": "^21.1.5",
 		"@types/lodash": "^4.14.80",
 		"@types/mongodb": "^2.1.43",
 		"@types/mongoose": "^4.7.24",
