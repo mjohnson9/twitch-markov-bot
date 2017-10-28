@@ -64,6 +64,6 @@
 		"ts-jest": "^19.0.8",
 		"tslint": "^5.0.0",
 		"tslint-eslint-rules": "^4.1.1",
-		"typescript": "^2.4.0"
+		"typescript": "^2.5.3"
 	}
 }
