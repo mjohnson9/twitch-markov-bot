@@ -23,7 +23,9 @@
 	},
 	"jest": {
 		"globals": {
-			"__TS_CONFIG__": "tsconfig.json"
+			"ts-jest": {
+				"tsConfigFile": "tsconfig.json"
+			}
 		},
 		"moduleFileExtensions": [
 			"ts",
@@ -58,10 +60,10 @@
 		"@types/mongoose": "^4.7.24",
 		"@types/node": "^7.0.12",
 		"concurrently": "^3.5.0",
-		"jest": "^19.0.2",
+		"jest": "^21.2.1",
 		"nodemon": "^1.11.0",
 		"shelljs": "^0.7.8",
-		"ts-jest": "^19.0.8",
+		"ts-jest": "^21.1.4",
 		"tslint": "^5.8.0",
 		"tslint-eslint-rules": "^4.1.1",
 		"typescript": "^2.5.3"
