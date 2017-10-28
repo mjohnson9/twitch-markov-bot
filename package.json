@@ -51,7 +51,7 @@
 	},
 	"devDependencies": {
 		"@types/async": "^2.0.40",
-		"@types/dotenv": "^2.0.20",
+		"@types/dotenv": "^2.0.23",
 		"@types/jest": "^19.2.2",
 		"@types/lodash": "^4.14.80",
 		"@types/mongodb": "^2.1.43",
