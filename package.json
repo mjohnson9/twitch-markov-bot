@@ -62,7 +62,7 @@
 		"nodemon": "^1.11.0",
 		"shelljs": "^0.7.7",
 		"ts-jest": "^19.0.8",
-		"tslint": "^5.0.0",
+		"tslint": "^5.8.0",
 		"tslint-eslint-rules": "^4.1.1",
 		"typescript": "^2.5.3"
 	}
