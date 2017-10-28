@@ -58,7 +58,7 @@
 		"@types/lodash": "^4.14.80",
 		"@types/mongodb": "^2.1.43",
 		"@types/mongoose": "^4.7.24",
-		"@types/node": "^7.0.12",
+		"@types/node": "^8.0.0",
 		"concurrently": "^3.5.0",
 		"jest": "^21.2.1",
 		"nodemon": "^1.11.0",
