@@ -59,7 +59,10 @@ class Bot {
     }
 
     private async connectToMongoDB() {
-        await mongoose.connect(process.env.MONGODB_URI, {
+        // we have to explicitly cast the environment variables as strings
+        // because the linter doesn't understand that we've checked its
+        // existence before running this code
+        await mongoose.connect(process.env.MONGODB_URI as string, {
             server: {
                 socketOptions: {
                     keepAlive: 15 * 1000,
