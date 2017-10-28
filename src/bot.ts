@@ -55,7 +55,7 @@ class Bot {
 
         console.log("connecting to Twitch...");
         await this.connectToTwitch();
-        console.log("connected to Twitch as " + (this.twitchClient != undefined ? this.twitchClient.getUsername() : "undefined"));
+        console.log("connected to Twitch as " + (this.twitchClient !== undefined ? this.twitchClient.getUsername() : "undefined"));
     }
 
     private async connectToMongoDB() {
@@ -69,7 +69,7 @@ class Bot {
     }
 
     private async connectToTwitch() {
-        if(this.twitchClient != undefined) {
+        if(this.twitchClient !== undefined) {
             try {
                 await this.twitchClient.disconnect();
             } catch(err) {
@@ -101,7 +101,7 @@ class Bot {
 
             try {
                 await this.tokenize(`${userstate.username} ${message}`);
-                console.log(`[LEARNED] ${userstate.username} ${message}`)
+                console.log(`[LEARNED] ${userstate.username} ${message}`);
             } catch(err) {
                 console.log(`Failed to learn from "${userstate.username} ${message}" -- ${err}`);
             }
@@ -125,7 +125,7 @@ class Bot {
         const tokens = tokenize.tokenize(msg);
 
         return async.forEach(tokens, async (token) => {
-            return chainlink.ChainLink.update({fromWord: token.fromWord, toWord: token.toWord}, {"$inc": {"occurences": 1}}, {upsert: true});
+            return chainlink.ChainLink.update({fromWord: token.fromWord, toWord: token.toWord}, {$inc: {occurences: 1}}, {upsert: true});
         });
     }
 }
@@ -133,6 +133,6 @@ class Bot {
 /**
  * Connect to MongoDB.
  */
-//mongoose.Promise = global.Promise;
+// mongoose.Promise = global.Promise;
 
 const bot = new Bot();
