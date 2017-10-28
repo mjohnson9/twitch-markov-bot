@@ -55,7 +55,7 @@
 		"@types/jest": "^19.2.2",
 		"@types/lodash": "^4.14.63",
 		"@types/mongodb": "^2.1.43",
-		"@types/mongoose": "^4.7.9",
+		"@types/mongoose": "^4.7.24",
 		"@types/node": "^7.0.12",
 		"concurrently": "^3.5.0",
 		"jest": "^19.0.2",
