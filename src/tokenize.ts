@@ -11,9 +11,9 @@ export class Token {
     }
 }
 
-const FORBIDDEN_CHARACTERS = new RegExp(TOKEN_LIST_BEGIN + "|" + TOKEN_LIST_END, "g");
-function Tokenize(text: string): Token[] {
-    text = text.replace(FORBIDDEN_CHARACTERS, "");
+const FORBIDDEN_REGEX = new RegExp(`(?:${TOKEN_LIST_BEGIN}|${TOKEN_LIST_END}|\\bcheer\\d+\\b)`, "g");
+function tokenize(text: string): Token[] {
+    text = text.replace(FORBIDDEN_REGEX, "");
     const textSplit = text.split(" ");
 
     const tokens: Token[] = [];
@@ -27,9 +27,14 @@ function Tokenize(text: string): Token[] {
         lastWord = word;
     }
 
+    if(tokens.length === 0) {
+        // we somehow made an empty token list; don't bother going any further
+        return tokens;
+    }
+
     tokens.push(new Token(lastWord, TOKEN_LIST_END));
 
     return tokens;
 }
 
-export default Tokenize;
+export {tokenize};

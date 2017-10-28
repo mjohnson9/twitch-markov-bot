@@ -3,19 +3,9 @@
 declare module "tmi.js" {
     import events = require("events");
 
+    type LogFunc = (message: string) => void;
+
     interface ClientOptions {
-        options?: {
-            /**
-             * Used to identify your application to the API
-             */
-            clientId?: string;
-
-            /**
-             * Show debug messages in console
-             */
-            debug?: boolean;
-        };
-
         connection?: {
             /**
              * Connect to this server
@@ -28,11 +18,6 @@ declare module "tmi.js" {
             port?: number;
 
             /**
-             * Reconnect to Twitch when disconnected from server
-             */
-            reconnection?: boolean;
-
-            /**
              * Max number of reconnection attempts
              */
             maxReconnectAttempts?: number;
@@ -41,6 +26,11 @@ declare module "tmi.js" {
              * Max number of ms to delay a reconnection
              */
             maxReconnectInterval?: number;
+
+            /**
+             * Whether or not to reconnect
+             */
+            reconnect?: boolean;
 
             /**
              * The rate of increase of the reconnect delay
@@ -75,6 +65,18 @@ declare module "tmi.js" {
             password?: string;
         };
 
+        options?: {
+            /**
+             * Used to identify your application to the API
+             */
+            clientId?: string;
+
+            /**
+             * Show debug messages in console
+             */
+            debug?: boolean;
+        };
+
         /**
          * List of channels to join when connected
          */
@@ -83,7 +85,11 @@ declare module "tmi.js" {
         /**
          * Custom logger with the methods info, warn, and error
          */
-        logger?: any;
+        logger?: {
+            error: LogFunc;
+            info: LogFunc;
+            warn: LogFunc;
+        };
     }
 
     class Client extends events.EventEmitter {

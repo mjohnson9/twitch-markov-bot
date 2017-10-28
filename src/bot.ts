@@ -3,9 +3,13 @@
  */
 import * as path from "path";
 
+import * as async from "async";
 import * as dotenv from "dotenv";
 import * as mongoose from "mongoose";
 import * as tmi from "tmi.js";
+
+import * as chainlink from "./models/ChainLink";
+import * as tokenize from "./tokenize";
 
 /**
  * Load environment variables from .env file, where API keys and passwords are configured.
@@ -24,15 +28,15 @@ function checkEnvironmentVariable(name: string) {
 
 checkEnvironmentVariable("MONGODB_URI");
 checkEnvironmentVariable("CLIENT_ID");
+checkEnvironmentVariable("USERNAME");
 checkEnvironmentVariable("OAUTH_TOKEN");
 checkEnvironmentVariable("CHANNEL");
 
 class Bot {
-    private db: mongoose.Connection;
-    private twitchClient: tmi.Client;
+    private twitchClient?: tmi.Client;
 
     constructor() {
-        this.setup().catch(() => {
+        this.setup().catch((err) => {
             let errText: string;
             if(err instanceof Error) {
                 errText = err.message;
@@ -51,11 +55,11 @@ class Bot {
 
         console.log("connecting to Twitch...");
         await this.connectToTwitch();
-        console.log("connected to Twitch");
+        console.log("connected to Twitch as " + (this.twitchClient != undefined ? this.twitchClient.getUsername() : "undefined"));
     }
 
     private async connectToMongoDB() {
-        this.db = await mongoose.createConnection(process.env.MONGODB_URI, {
+        await mongoose.connect(process.env.MONGODB_URI, {
             server: {
                 socketOptions: {
                     keepAlive: 15 * 1000,
@@ -65,14 +69,14 @@ class Bot {
     }
 
     private async connectToTwitch() {
-        if(this.twitchClient != null) {
+        if(this.twitchClient != undefined) {
             try {
                 await this.twitchClient.disconnect();
             } catch(err) {
                 // we aren't concerned if it's already disconnected
             }
 
-            this.twitchClient = null;
+            this.twitchClient = undefined;
         }
 
         this.twitchClient = new tmi.Client({
@@ -92,29 +96,43 @@ class Bot {
             ],
         });
 
-        this.twitchClient.on("action", (channel, userstate, message, self) => {
+        this.twitchClient.on("action", async (channel: string, userstate: any, message: string, self: boolean) => {
             if(self) { return; }
 
-            this.tokenize(`${userstate.username} ${message}`);
+            try {
+                await this.tokenize(`${userstate.username} ${message}`);
+                console.log(`[LEARNED] ${userstate.username} ${message}`)
+            } catch(err) {
+                console.log(`Failed to learn from "${userstate.username} ${message}" -- ${err}`);
+            }
         });
 
-        this.twitchClient.on("action", (channel, userstate, message, self) => {
+        this.twitchClient.on("message", async (channel: string, userstate: any, message: string, self: boolean) => {
             if(self) { return; }
 
-            this.tokenize(message);
+            try {
+                await this.tokenize(message);
+                console.log(`[LEARNED] ${userstate.username}: ${message}`);
+            } catch(err) {
+                console.log(`Failed to learn from ${userstate.username}: "${message}" -- ${err}`);
+            }
         });
 
         await this.twitchClient.connect();
     }
 
-    private tokenize(msg: string) {
-        console.log(`Would tokenize: ${msg}`);
+    private async tokenize(msg: string) {
+        const tokens = tokenize.tokenize(msg);
+
+        return async.forEach(tokens, async (token) => {
+            return chainlink.ChainLink.update({fromWord: token.fromWord, toWord: token.toWord}, {"$inc": {"occurences": 1}}, {upsert: true});
+        });
     }
 }
 
 /**
  * Connect to MongoDB.
  */
-mongoose.Promise = global.Promise;
+//mongoose.Promise = global.Promise;
 
 const bot = new Bot();
