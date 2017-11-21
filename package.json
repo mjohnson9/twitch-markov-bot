@@ -59,7 +59,7 @@
 		"@types/mongodb": "^2.2.15",
 		"@types/mongoose": "^4.7.24",
 		"@types/node": "^8.0.50",
-		"concurrently": "^3.5.0",
+		"concurrently": "^3.5.1",
 		"jest": "^21.2.1",
 		"nodemon": "^1.12.1",
 		"shelljs": "^0.7.8",
