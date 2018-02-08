@@ -48,7 +48,7 @@
 		"dotenv": "^4.0.0",
 		"dts-gen": "^0.5.7",
 		"lodash": "^4.17.4",
-		"mongoose": "^4.13.0",
+		"mongoose": "^4.13.11",
 		"tmi.js": "^1.2.1"
 	},
 	"devDependencies": {
