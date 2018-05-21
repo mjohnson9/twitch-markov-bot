@@ -44,7 +44,7 @@
 		"testEnvironment": "node"
 	},
 	"dependencies": {
-		"async": "^2.6.0",
+		"async": "^2.6.1",
 		"dotenv": "^4.0.0",
 		"dts-gen": "^0.5.7",
 		"lodash": "^4.17.4",
