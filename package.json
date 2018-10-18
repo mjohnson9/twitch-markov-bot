@@ -52,7 +52,7 @@
 		"tmi.js": "^1.2.1"
 	},
 	"devDependencies": {
-		"@types/async": "^2.0.45",
+		"@types/async": "^2.0.50",
 		"@types/dotenv": "^4.0.2",
 		"@types/jest": "^21.1.5",
 		"@types/lodash": "^4.14.82",
