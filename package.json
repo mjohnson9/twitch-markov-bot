@@ -1,0 +1,71 @@
+{
+	"name": "express-typescript-starter",
+	"version": "0.1.0",
+	"description": "A starting point for Node.js express apps with TypeScript",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/sahat/hackathon-starter.git"
+	},
+	"author": "Bowden Kelly",
+	"license": "MIT",
+	"scripts": {
+		"start": "npm run build && npm run watch",
+		"build": "npm run build-ts && npm run tslint",
+		"serve": "nodemon dist/bot.js",
+		"watch": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"cyan.bold,green.bold\" \"npm run watch-ts\" \"npm run serve\"",
+		"test": "jest --forceExit",
+		"build-ts": "tsc",
+		"watch-ts": "tsc -w",
+		"tslint": "tslint -c tslint.json -p tsconfig.json",
+		"debug": "npm run build && npm run watch-debug",
+		"serve-debug": "nodemon --inspect=9222 dist/bot.js",
+		"watch-debug": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"cyan.bold,green.bold\" \"npm run watch-ts\" \"npm run serve-debug\""
+	},
+	"jest": {
+		"globals": {
+			"ts-jest": {
+				"tsConfigFile": "tsconfig.json"
+			}
+		},
+		"moduleFileExtensions": [
+			"ts",
+			"js"
+		],
+		"moduleDirectories": [
+			"node_modules",
+			"src"
+		],
+		"transform": {
+			"^.+\\.(ts|tsx)$": "./node_modules/ts-jest/preprocessor.js"
+		},
+		"testMatch": [
+			"**/test/**/*.test.(ts|js)"
+		],
+		"testEnvironment": "node"
+	},
+	"dependencies": {
+		"async": "^2.6.0",
+		"dotenv": "^4.0.0",
+		"dts-gen": "^0.5.7",
+		"lodash": "^4.17.4",
+		"mongoose": "^4.13.0",
+		"tmi.js": "^1.2.1"
+	},
+	"devDependencies": {
+		"@types/async": "^2.0.45",
+		"@types/dotenv": "^4.0.2",
+		"@types/jest": "^21.1.5",
+		"@types/lodash": "^4.14.82",
+		"@types/mongodb": "^2.2.15",
+		"@types/mongoose": "^4.7.24",
+		"@types/node": "^8.0.50",
+		"concurrently": "^3.5.0",
+		"jest": "^21.2.1",
+		"nodemon": "^1.12.1",
+		"shelljs": "^0.7.8",
+		"ts-jest": "^21.2.1",
+		"tslint": "^5.8.0",
+		"tslint-eslint-rules": "^4.1.1",
+		"typescript": "^2.6.1"
+	}
+}

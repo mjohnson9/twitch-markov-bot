@@ -1,0 +1,22 @@
+{
+    "defaultSeverity": "error",
+    "extends": [
+        "tslint:recommended"
+    ],
+    "rules": {
+		"no-console": false,
+		"whitespace": {
+			"options": [
+				"check-decl",
+				"check-operator",
+				"check-separator",
+				"check-type",
+				"check-typecast"
+			]
+		},
+
+		"max-line-length": false,
+
+		"object-literal-sort-keys": false
+	}
+}
